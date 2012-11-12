@@ -80,14 +80,15 @@ for user in fin:
         break
       else:
         try:
-          hits=t.account.rate_limit_status()['remaining_hits']
+          status=c_tw.account.rate_limit_status()
+          hits=status['remaining_hits']          
           if hits==0:
             now=time.time()
             reset=status['reset_time_in_seconds']
             SLEEP=reset-now
             print >> sys.stderr, 'Rate limit reached. Trying again in %i seconds' % (SLEEP)
             time.sleep(SLEEP)
-            continue
+            continue        
           else:
             print >> sys.stderr, 'Other error '+str(e.e.code)
             k=0
