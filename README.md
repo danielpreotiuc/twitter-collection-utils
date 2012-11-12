@@ -1,4 +1,4 @@
-Twitter Collection Utilities
+*Twitter Collection Utilities*
 
 ch.py - get historical tweets
 
