@@ -54,6 +54,8 @@ while 1==1:
     tweets=c_tw.statuses.home_timeline(count=STEP,since_id=sid)
   except twitter.api.TwitterError, e:
     time.sleep(WAIT_PERIOD)
+  except:
+    continue
   if len(tweets)==0:
     time.sleep(WAIT_CALL)
     continue
@@ -77,4 +79,4 @@ while 1==1:
   for tweet in tlist:
     print >> fout, json.dumps(tweet)
   sid=new_sid	
-  time.sleep(WAIT_PERIOD)
+  time.sleep(WAIT_CALL)
