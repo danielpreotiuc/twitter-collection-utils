@@ -17,9 +17,12 @@ To add:
 
 How to install (make the packaging)
 
-Where to put the keys
+
+In order for your scripts to run, you need to authenticate to the Twitter API. This can be done by using the 4 keys Twitter provides you when you register an application. For more information go to https://dev.twitter.com/ To use some script (e.g. follow.py) you need to add the read&write access for your application.
+
+You may have multiple consumers, associated with different accounts/applications. You should store these keys in your home directory in a file named .twittertokens The file should contain the 4 keys separated by a comma in the order:
+ConsumerKey,ConsumerSecret,AccessToken,AccessSecret
+
 
 Generalize redundant functions
-
-don't forget to add read& write for follow to work to the application in the Twitter API
 
