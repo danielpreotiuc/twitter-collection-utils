@@ -1,10 +1,4 @@
 #!/usr/bin/env python
-# gets the last 3200 tweets of each user
-
-# arg1 is a file with twitter screen names (one user/line), default user-file
-# arg2 is a consumer id (so far there are from 0-6), default 0
-# arg3 a target folder name for all the files, default timelines
-# needs a ~/.twittertokens file
 
 import time
 import sys

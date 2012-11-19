@@ -1,8 +1,3 @@
-# updates the tweets from a list of users
-# arg1 is a file with twitter screen names (one user/line), default user-file
-# arg2 is a consumer id (so far there are from 0-6), default 0
-# arg3 a target folder name for all the files, default timelines
-# needs a ~/.twittertokens file
 import time
 import sys
 import twitter
@@ -30,6 +25,7 @@ CONF_DIR = os.getenv('HOME') # where to find the configuration
 USER_FILE = (sys.argv[1] if len(sys.argv) >= 2 else "user-file")
 CONSUMER = (int(sys.argv[2]) if len(sys.argv) >= 3 else 0)
 FOLDER = (sys.argv[3] if len(sys.argv) >= 4 else "timelines")
+WAIT_UPDATE = (int(sys.argv[4]) if len(sys.argv) >= 5 else 3600)
 if not os.path.exists(FOLDER): os.makedirs(FOLDER)
 fuser = open(USER_FILE,'r')
 users=[]
@@ -47,9 +43,7 @@ for line in fuser:
     f.close()    
     sids[uname]=json.loads(l)['id']
              
-CONSUMER = int(sys.argv[2])
 WAIT_PERIOD = 2 # time until retry for a failed Twitter API call
-WAIT_UPDATE = 3600 # pause after one pass over the entire user list
 STEP = 200 # number of tweets retrieved per call; should always be 200 (maximum)
 
 tokensIndex = loadTokensIndex(os.sep.join([CONF_DIR,".twittertokens"]))

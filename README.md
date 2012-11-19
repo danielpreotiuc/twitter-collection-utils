@@ -63,15 +63,17 @@ consumerid - number of consumer (see installation section)
 
 #### monitor-users.py
 
-Gets the historical tweets of a list of users and then updates the files at a regular time interval
+Gets the historical tweets of a list of users and then updates the files at a regular time interval. If given a folder with existing tweet files for the users, resumes from the last seen tweet.
 
-        python ch.py userfile consumerid targetfolder
+        python ch.py userfile consumerid targetfolder wait
 
 userfile - file with the list of user ids, one/line (default 'user-file')
 
 consumerid - number of consumer (see installation section)
 
 targetfolder - the target folder name (default 'timelines', creates the folder if it doesn't exist)
+
+wait - waiting time when finished an update (default 3600)
 
 #### oauth.py - use twitter api as with curl
 

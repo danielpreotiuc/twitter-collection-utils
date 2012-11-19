@@ -1,5 +1,3 @@
-# updates the tweets from a user timeline
-# arg1 is the consumer id (so far there are from 0-6)
 import time
 import sys
 import twitter
@@ -40,7 +38,7 @@ sid=1
 lid=1
 d=datetime.datetime.now()
 da=d.day
-FNAME="TMSORA-"+str(d.year)+'-'+str(d.month)+'-'+str(d.day)
+FNAME=str(d.year)+'-'+str(d.month)+'-'+str(d.day)
 fout=open(FNAME,"w")
 while 1==1:
   if not da==datetime.datetime.now().day:
@@ -48,7 +46,7 @@ while 1==1:
     da=d.day   
     fout.close()
     os.system("lzop -9U "+FNAME)
-    FNAME="TMSORA-"+str(d.year)+'-'+str(d.month)+'-'+str(d.day)
+    FNAME=str(d.year)+'-'+str(d.month)+'-'+str(d.day)
     fout=open(FNAME,"w")
   try:
     tweets=c_tw.statuses.home_timeline(count=STEP,since_id=sid)
