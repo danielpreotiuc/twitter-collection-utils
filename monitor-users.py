@@ -63,9 +63,6 @@ while 1==1:
     sid=sids[user]
     try:
       tweets=c_tw.statuses.user_timeline(id=user,count=STEP,since_id=sid)
-    except httplib.BadStatusLine, e:
-      print >> sys.stderr, 'httplib error'
-      continue
     except twitter.api.TwitterError, e:
       if e.e.code in (502,503):
         print >> sys.stderr, 'Encountered %i Error, Trying again in %i seconds' % (e.e.code,WAIT_PERIOD)
