@@ -6,38 +6,48 @@ This is a set of Python scripts that performs some usual data collection tasks f
 
 ## Scripts
 
-ch.py - gets the historical tweets of a list of users
+### ch.py - gets the historical tweets of a list of users
 
-dedupl.sh - deduplicate a file of tweets
-
+### dedupl.sh - deduplicate a file of tweets
+ 
 _Usage_:
 	./dedupl.sh folder
 folder - folder of tweet files that need deduplication (relative to script location)
 
-follow.py - follows a list of users without making twitter suspicious
+### follow.py - follows a list of users without making twitter suspicious
 
 Follows a list of users from the current account.
 
 _Usage_:
+
 	python follow.py userfile consumerid iter wait
+
 userfile - file with the list of user ids, one/line (default 'user-file')
+
 consumerid - number of consumer (see installation section)
+
 iter - number of batches to split the users into (default 10)
+
 wait - wait period between batches of follow requests (default 3600)
 
-monitor-timeline.py - get and monitor timeline of a user
+### monitor-timeline.py - get and monitor timeline of a user
 
-monitor-users.py - get and monitor timeline of a list of users
+### monitor-users.py - get and monitor timeline of a list of users
 
-oauth.py - use twitter api as with curl
+### oauth.py - use twitter api as with curl
 
 _Usage_:
+
 	python oauth.py url consumerid
+
 Can be ran as standalone script, without using the Twitter python package
+
 url - url address to the Twitter API
+
 consumerid - number of consumer (see installation section)
 
 _Example_:
+
 	python oauth.py https://api.twitter.com/1/statuses/home_timeline.json
 
 ## Installation
