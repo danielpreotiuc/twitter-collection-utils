@@ -6,15 +6,31 @@ This is a set of Python scripts that performs some usual data collection tasks f
 
 ## Scripts
 
-### ch.py - gets the historical tweets of a list of users
+#### ch.py
 
-### dedupl.sh - deduplicate a file of tweets
+Gets the historical tweets of a list of users
+
+_Usage_:
+
+	python ch.py userfile consumerid targetfolder
+
+userfile - file with the list of user ids, one/line (default 'user-file')
+
+consumerid - number of consumer (see installation section)
+
+targetfolder - the target folder name (default 'timelines', creates the folder if it doesn't exist)
+
+#### dedupl.sh
+
+Deduplicates files of tweets
  
 _Usage_:
+
 	./dedupl.sh folder
+
 folder - folder of tweet files that need deduplication (relative to script location)
 
-### follow.py - follows a list of users without making twitter suspicious
+#### follow.py
 
 Follows a list of users from the current account.
 
@@ -30,11 +46,31 @@ iter - number of batches to split the users into (default 10)
 
 wait - wait period between batches of follow requests (default 3600)
 
-### monitor-timeline.py - get and monitor timeline of a user
+#### monitor-timeline.py
 
-### monitor-users.py - get and monitor timeline of a list of users
+Gets the timeline of a user and updates every minute. Outputs in a separate file every day.
 
-### oauth.py - use twitter api as with curl
+_Usage_:
+
+	python monitor-timeline.py consumerid
+
+consumerid - number of consumer (see installation section)
+
+#### monitor-users.py
+
+Gets the historical tweets of a list of users and then updates the files at a regular time interval
+
+_Usage_:
+
+        python ch.py userfile consumerid targetfolder
+
+userfile - file with the list of user ids, one/line (default 'user-file')
+
+consumerid - number of consumer (see installation section)
+
+targetfolder - the target folder name (default 'timelines', creates the folder if it doesn't exist)
+
+#### oauth.py - use twitter api as with curl
 
 _Usage_:
 
