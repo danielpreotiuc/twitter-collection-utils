@@ -20,14 +20,21 @@ def loadTokensIndex(loc):
   return index
 
 CONF_DIR = os.getenv('HOME') # where to find the configuration
-CONSUMER = int(sys.argv[1])
+USER_FILE = (sys.argv[1] if len(sys.argv) >= 2 else "user-file")
+CONSUMER = (int(sys.argv[2]) if len(sys.argv) >= 3 else 0)
+ITER = (int(sys.argv[3]) if len(sys.argv) >= 4 else 10)
+WAIT = (int(sys.argv[4]) if len(sys.argv) >= 5 else 3600)
+
 tokensIndex = loadTokensIndex(os.sep.join([CONF_DIR,".twittertokens"]))
 tokens = tokensIndex[CONSUMER]
 c_tw=twitter.Twitter(domain='api.twitter.com',api_version="1",auth=twitter.OAuth(tokens["ATOKEN_KEY"],tokens["ATOKEN_SECRET"],tokens["CLIENT_KEY"],tokens["CLIENT_SECRET"]))
 
-ITER=1
-WAIT=10
-users = ["lampos","notarealtwitteruser","sinjax","omniphobia","puresock"]
+users=[]
+f=open(USER_FILE,'r')
+for line in f:
+  users.append(line.strip())
+f.close()
+
 parts = [i for i in xrange(0,len(users),ITER)]
 
 for x in parts:
