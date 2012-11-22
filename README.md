@@ -19,18 +19,6 @@ Whenever consumerid is mentioned, it is a integer value k that indicates the cre
 
 ## Scripts
 
-#### ch.py
-
-Gets the historical tweets of a list of users
-
-	python ch.py userfile consumerid targetfolder
-
-userfile - file with the list of user ids, one/line (default 'user-file')
-
-consumerid - number of consumer (see installation section)
-
-targetfolder - the target folder name (default 'timelines', creates the folder if it doesn't exist)
-
 #### dedupl.sh
 
 Deduplicates files of tweets
@@ -63,17 +51,15 @@ consumerid - number of consumer (see installation section)
 
 #### monitor-users.py
 
-Gets the historical tweets of a list of users and then updates the files at a regular time interval. If given a folder with existing tweet files for the users, resumes from the last seen tweet.
+Gets the historical tweets of a list of users. If given a folder where tweet files of users exists, resumes from the last seen tweet. Suitable for running as a cron job in order to update the tweets at a regular time interval.
 
-        python ch.py userfile consumerid targetfolder wait
+        python ch.py userfile consumerid targetfolder
 
 userfile - file with the list of user ids, one/line (default 'user-file')
 
 consumerid - number of consumer (see installation section)
 
 targetfolder - the target folder name (default 'timelines', creates the folder if it doesn't exist)
-
-wait - waiting time when finished an update (default 3600)
 
 #### oauth.py - use twitter api as with curl
 
@@ -91,7 +77,7 @@ consumerid - number of consumer (see installation section)
 
 ## Bugs
 
-I am currently running continuously all the scripts and hope to have eliminated all the bugs so the scripts are safe to be run without needing to worry about crashing. However, if you encounter any bugs, please tell me. All the scripts were tested under Unix.
+The scripts were all ran continuously and all the bugs seem to have been eliminated, so the scripts are safe to be run without needing to worry about crashing. However, if you encounter any bugs, please tell me. All the scripts were tested under Unix.
 
 ## To add
 
