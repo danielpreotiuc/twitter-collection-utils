@@ -6,7 +6,13 @@ This is a set of Python scripts that performs some usual data collection tasks f
 
 ## Installation
 
-How to install (make the packaging)
+**Packages**
+
+In order for the scripts to run, you need to install some Python packages. These are:
+
+https://github.com/brosner/python-oauth2
+
+https://github.com/sixohsix/twitter
 
 **Add the Twitter API Keys (required)**
 
@@ -82,6 +88,8 @@ The scripts were all ran continuously and all the bugs seem to have been elimina
 ## To add
 
 Generalize some functions
+
+Make package
 
 ## Licence
 
