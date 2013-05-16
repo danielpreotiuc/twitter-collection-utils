@@ -47,6 +47,30 @@ iter - number of batches to split the users into (default 10)
 
 wait - wait period between batches of follow requests (default 3600)
 
+#### monitor-location.py
+
+Gets the tweets around a location and updates. Outputs one file/day and archives them using lzop
+
+        python monitor-location.py consumerid latitude longitude radius filenames wait query
+
+consumerid - number of consumer (see installation section)
+
+latitude - latitude of the location
+
+longitude - longitude of the location
+
+radius - radius around the center point (in miles)
+
+filenames - prefix of the files
+
+wait - wait time between calls. Should be adjusted not to cosume too many calls, not less than 10.
+
+query - the query to monitor. If we want as many tweets as possible, use stopwords (e.g. a)
+
+*Example*
+
+        python monitor-location.py 1 -34.5 -58.4 20 buenos-aires 15 a
+
 #### monitor-timeline.py
 
 Gets the timeline of a user and updates every minute. Outputs in a separate file every day.
@@ -59,7 +83,7 @@ consumerid - number of consumer (see installation section)
 
 Gets the historical tweets of a list of users. If given a folder where tweet files of users exists, resumes from the last seen tweet. Suitable for running as a cron job in order to update the tweets at a regular time interval.
 
-        python ch.py userfile consumerid targetfolder
+        python monitor-users.py userfile consumerid targetfolder
 
 userfile - file with the list of user ids, one/line (default 'user-file')
 
