@@ -12,8 +12,6 @@ In order for the scripts to run, you need to install some Python packages. These
 
 https://github.com/brosner/python-oauth2
 
-https://github.com/sixohsix/twitter
-
 **Add the Twitter API Keys (required)**
 
 In order for your scripts to run, you need to authenticate with the Twitter API. This can be done by using the 4 keys Twitter provides you when you register an application. For more information go to https://dev.twitter.com/ To use some scripts (e.g. follow.py) you need to add the read&write access for your application.
