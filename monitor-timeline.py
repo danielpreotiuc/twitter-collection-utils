@@ -1,6 +1,6 @@
 import time
 import sys
-import twitter
+import oauth2
 import json
 import cPickle as pickle
 import os
@@ -21,6 +21,17 @@ def loadTokensIndex(loc):
 		index = index + [tokens]
 	return index
 
+def request(url):
+  try:
+    consumer=oauth2.Consumer(key=tokens["CLIENT_KEY"],secret=tokens["CLIENT_SECRET"])
+    token=oauth2.Token(key=tokens["ATOKEN_KEY"],secret=tokens["ATOKEN_SECRET"])
+    client=oauth2.Client(consumer,token)
+    resp,content=client.request(url,method="GET")
+  except:
+    resp['status']=404;
+    content='[]'
+  return resp,content
+
 CONF_DIR = os.getenv('HOME') # where to find the configuration
 CONSUMER = int(sys.argv[1])
 
@@ -30,8 +41,6 @@ STEP = 200 # number of tweets retrieved per call; should always be 200 (maximum)
 
 tokensIndex = loadTokensIndex(os.sep.join([CONF_DIR,".twittertokens"]))
 tokens = tokensIndex[CONSUMER]
-
-c_tw=twitter.Twitter(domain='api.twitter.com',api_version="1",auth=twitter.OAuth(tokens["ATOKEN_KEY"],tokens["ATOKEN_SECRET"],tokens["CLIENT_KEY"],tokens["CLIENT_SECRET"]))
 
 new_sid=1
 sid=1
@@ -48,11 +57,33 @@ while 1==1:
     os.system("lzop -9U "+FNAME)
     FNAME=str(d.year)+'-'+str(d.month)+'-'+str(d.day)
     fout=open(FNAME,"w")
-  try:
-    tweets=c_tw.statuses.home_timeline(count=STEP,since_id=sid)
-  except twitter.api.TwitterError, e:
+  r,c=request('https://api.twitter.com/1.1/statuses/home_timeline.json?count='+str(STEP)+'&since_id='+str(sid))
+  st=int(r['status'])
+  if st==200:
+    tweets=json.loads(c)
+    print len(tweets)
+  elif st==429:
+    wait_time=60
+    r,c=request('https://api.twitter.com/1.1/application/rate_limit_status.json')
+    try:
+      rstatus=json.loads(c)
+      if int(rstatus['resources']['statuses']['/statuses/home_timeline']['remaining'])==0:
+        now=time.time()
+        reset=int(rstatus['resources']['statuses']['/statuses/home_timeline']['reset'])
+        print now, reset
+        wait_time=reset-now+1
+    except:
+      pass
+    print 'Rate limit reached, waiting %i seconds' % wait_time
+    time.sleep(wait_time)
+    continue
+  elif st==400:
+    print 'Error %i, waiting 60 seconds' % st
+    time.sleep(60)
+    continue
+  else:
+    print 'Error %i, waiting %i seconds' % (st,WAIT_PERIOD)
     time.sleep(WAIT_PERIOD)
-  except:
     continue
   if len(tweets)==0:
     time.sleep(WAIT_CALL)
@@ -63,12 +94,33 @@ while 1==1:
   tlist=tweets
   while lid>sid:
 # we have more than STEP tweets in the sleeping time, go back in time until sid and get them
-    try:
-      tweets=c_tw.statuses.home_timeline(count=STEP,max_id=lid-1,since_id=sid)
-    except twitter.api.TwitterError, e:
+    r,c=request('https://api.twitter.com/1.1/statuses/home_timeline.json?count='+str(STEP)+'&since_id='+str(sid))
+    st=int(r['status'])
+    if st==200:
+      tweets=json.loads(c)
+      print len(tweets)
+    elif st==429:
+      wait_time=60
+      r,c=request('https://api.twitter.com/1.1/application/rate_limit_status.json')
+      try:
+        rstatus=json.loads(c)
+        if int(rstatus['resources']['statuses']['/statuses/home_timeline']['remaining'])==0:
+          now=time.time()
+          reset=int(rstatus['resources']['statuses']['/statuses/home_timeline']['reset'])
+          print now, reset
+          wait_time=reset-now+1
+      except:
+        pass
+      print 'Rate limit reached, waiting %i seconds' % wait_time
+      time.sleep(wait_time)
+      break
+    elif st==400:
+      print 'Error %i, waiting 60 seconds' % st
+      time.sleep(60)
+      break
+    else:
+      print 'Error %i, waiting %i seconds' % (st,WAIT_PERIOD)
       time.sleep(WAIT_PERIOD)
-      break;  
-    if len(tweets)==0:
       break
     lid=tweets[len(tweets)-1]['id']
     tlist=tlist+tweets

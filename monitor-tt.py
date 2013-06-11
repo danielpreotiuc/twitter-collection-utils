@@ -41,7 +41,7 @@ FNAME=str(sys.argv[2])
 LOC_ID = (sys.argv[3] if len(sys.argv) >= 4 else "23424975")
 # defaults to U.K.
 
-fout=open(FNAME,'w')
+fout=open(FNAME,'a')
 while 1==1:
   r,c=request('https://api.twitter.com/1.1/trends/place.json?id='+LOC_ID)
   st=int(r['status'])
