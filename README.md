@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a set of Python scripts that performs some usual data collection tasks from Twitter. This includes continuos crawling of the tweets of a list of users or getting all the tweets from a user's timeline.
+This is a set of Python scripts that performs some usual data collection tasks from Twitter. This includes continuous crawling of tweets of a list of users or getting all the tweets from a user's timeline.
 
 ## Installation
 
