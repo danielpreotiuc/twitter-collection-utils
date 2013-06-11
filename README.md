@@ -79,6 +79,18 @@ Gets the timeline of a user and updates every minute. Outputs in a separate file
 
 consumerid - number of consumer (see installation section)
 
+#### monitor-tt.py
+
+Gets the trending topic at a location and updates every 5 minutes (more often is useless).
+
+        python monitor-tt.py consumerid fout woeid
+
+consumerid - number of consumer (see installation section)
+
+fout - name of output file
+
+woeid - id of location where we want to monitor the trends (defaults to U.K.). List of possible locations taken from: https://dev.twitter.com/docs/api/1.1/get/trends/available
+
 #### monitor-users.py
 
 Gets the historical tweets of a list of users. If given a folder where tweet files of users exists, resumes from the last seen tweet. Suitable for running as a cron job in order to update the tweets at a regular time interval.
@@ -91,7 +103,9 @@ consumerid - number of consumer (see installation section)
 
 targetfolder - the target folder name (default 'timelines', creates the folder if it doesn't exist)
 
-#### oauth.py - use twitter api as with curl
+#### oauth.py
+
+Use twitter api as with curl
 
 	python oauth.py url consumerid
 
@@ -105,6 +119,12 @@ consumerid - number of consumer (see installation section)
 
 	python oauth.py https://api.twitter.com/1/statuses/home_timeline.json
 
+#### pp.py 
+
+Pretty print file with json (sorts keys alphabetically)
+	
+	cat tt-uk | python pp.py | less
+		
 ## Bugs
 
 The scripts were all ran continuously and all the bugs seem to have been eliminated, so the scripts are safe to be run without needing to worry about crashing. However, if you encounter any bugs, please tell me. All the scripts were tested under Unix.
