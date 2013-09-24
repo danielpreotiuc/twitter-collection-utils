@@ -57,6 +57,7 @@ while 1==1:
     os.system("lzop -9U "+FNAME)
     FNAME=str(d.year)+'-'+str(d.month)+'-'+str(d.day)
     fout=open(FNAME,"w")
+  print sid
   r,c=request('https://api.twitter.com/1.1/statuses/home_timeline.json?count='+str(STEP)+'&since_id='+str(sid))
   st=int(r['status'])
   if st==200:
@@ -90,11 +91,11 @@ while 1==1:
     continue
 # this is the newset tweet we have, next time download only newer stuff
   new_sid=tweets[0]['id']
-  lid=tweets[len(tweets)-1]['id']
+  lid=tweets[len(tweets)-1]['id']-1
   tlist=tweets
   while lid>sid:
 # we have more than STEP tweets in the sleeping time, go back in time until sid and get them
-    r,c=request('https://api.twitter.com/1.1/statuses/home_timeline.json?count='+str(STEP)+'&since_id='+str(sid))
+    r,c=request('https://api.twitter.com/1.1/statuses/home_timeline.json?count='+str(STEP)+'&max_id='+str(lid)+'&since_id='+str(sid))
     st=int(r['status'])
     if st==200:
       tweets=json.loads(c)
@@ -122,7 +123,9 @@ while 1==1:
       print 'Error %i, waiting %i seconds' % (st,WAIT_PERIOD)
       time.sleep(WAIT_PERIOD)
       break
-    lid=tweets[len(tweets)-1]['id']
+    if len(tweets)==0:
+      break
+    lid=tweets[len(tweets)-1]['id']-1
     tlist=tlist+tweets
 # print the tweets we got in reverse order so that we mentain the order of timestamps
   tlist.reverse()
