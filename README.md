@@ -1,6 +1,6 @@
 # Twitter Collection Utilities
 
-<span style="text-color: red">This project is deprecated as it doesn't comply with the new Twitter API guidelines. I have started to recreate the same scripts in a separate project: https://github.com/danielpreotiuc/twitter-collection</span>
+*This project is deprecated as it doesn't comply with the new Twitter API guidelines. I have started to recreate the same scripts in a separate project: https://github.com/danielpreotiuc/twitter-collection*
 
 ## Description
 
