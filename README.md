@@ -1,5 +1,7 @@
 # Twitter Collection Utilities
 
+<span style="text-color: red">This project is deprecated as it doesn't comply with the new Twitter API guidelines. I have started to recreate the same scripts in a separate project: https://github.com/danielpreotiuc/twitter-collection</span>
+
 ## Description
 
 This is a set of Python scripts that performs some usual data collection tasks from Twitter. This includes continuous crawling of tweets of a list of users or getting all the tweets from a user's timeline.
